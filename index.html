@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color swapper/Toggler</title>
+    <style>
+        body {
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            font-family: cursive;
+            color: #130000;
+            position: relative;
+        }
+ 
+        .headerdiv{
+            width:fit-content;
+            padding: 1px;
+            background-color: #f5f17a;
+            border-radius: 5px;
+            margin: 5px;
+        }
+
+        .headerdiv h1{
+            width:fit-content;
+            padding: 0;
+            margin: 0;
+        }
+           
+
+       
+        center i{
+            color:blue;
+            animation: blink 2s steps(1, end) infinite;
+        }
+        @keyframes blink { 
+            0% { opacity: 1;}
+            20% {color:rgb(0, 174, 67);}
+            40% {color: #871aa8;}
+            80% { opacity: 0;} 
+            100% { opacity: 1;}
+        } 
+
+        .box-container {
+            display: grid;
+            grid-template-columns: repeat(2, 150px); /* Adjusted box size */
+            grid-gap: 20px;
+            justify-content: center;
+            margin: 0 auto;
+        }
+
+        .box {
+            box-shadow:1px 1px 1px 4px rgb(224, 255, 48);
+            width: 150px; /* Adjusted box size */
+            height: 150px; /* Adjusted box size */
+            background-color: #333;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .box:hover {
+            transform: scale(1.1);
+        }
+
+        /* Custom Button Styling */
+        #toggleButton {
+            position: fixed;
+            bottom: 0px;
+            left: 20px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            display: flex;
+            align-items: center;
+        }
+
+        #toggleButton img {
+            height: 70px;
+            transition: transform 0.3s;
+        }
+
+        #toggleButton:hover img {
+            transform: scale(1.1);
+        }
+
+        #icon {
+            font-size: 32px;
+            margin-left: 10px;
+        }
+
+        /* Overlay Message Styling */
+        .overlay {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(74, 187, 72, 0.837);
+            padding: 15px 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+            color: #fff312;
+            font-size: 24px;
+            display: none; /* Hidden by default */
+        }
+    </style>
+</head>
+<body>
+    <center>
+        <div class="headerdiv">
+            <h1 ><marquee behavior="slide" direction="down">Hello My Partners!</marquee></h1>
+        </div>
+        <i>what are you think about the future of <b>"NameRamdom"?</b></i>
+        <ul style="list-style-type: none; font-family: monospace; font-size: large;">
+            <li>-tap the button for on-</li>
+            <li>-then click on the box-</li>
+            <li>-tap repeatedly to more color-</li>
+            <li>-tap the button to off -<br>-the box color remains dark.-</li>
+        </ul>
+    </center>
+    <div class="container">
+        <div class="box-container">
+            <div class="box" id="box1"></div>
+            <div class="box" id="box2"></div>
+            <div class="box" id="box3"></div>
+            <div class="box" id="box4"></div>
+            <div class="box" id="box5"></div>
+            <div class="box" id="box6"></div>
+        </div>
+    </div>
+    <center> 
+        <div>
+            <h3>I Am ready for the next challange with   apologizing for being late so far? ...</h3>
+            <h2 style="color:green;">good luck!!!!</h2>
+        </div>
+    </center>
+
+    <!-- Icon Button -->
+    <button id="toggleButton">
+        <img id="imgg" src="off.jpg" alt="click me">
+        <i id="icon"></i>
+        <span id="texts" style="font-size: 2rem; color:red; font: bold 2rem 'monospace;">off</span>
+    </button>
+
+    <!-- Overlay Message -->
+    <div id="overlayMessage" class="overlay">
+        <p>Swapper is closed/off.</p>
+        <i>Turn on Swapper!</i>
+    </div>
+
+                <script>
+                    let isActive = false;
+                    const colors = [
+                        ['#ff6b6b', '#feca57', '#48dbfb', '#1dd1a1', '#5f27cd', '#ff9ff3'],
+                        ['#00d2d3', '#ff9f43', '#ee5253', '#0abde3', '#10ac84', '#576574'],
+                        ['#2e86de', '#e55039', '#f368e0', '#2ecc71', '#9b59b6', '#34495e'],
+                        ['#ffb142', '#ff6b6b', '#feca57', '#48dbfb', '#10ac84', '#e55039'],
+                        ['#1dd1a1', '#48dbfb', '#ff9ff3', '#ff6b6b', '#feca57', '#34495e'],
+                        ['#9b59b6', '#00d2d3', '#ff9f43', '#ee5253', '#0abde3', '#5f27cd']
+                    ];
+                    const overlayMessage = document.getElementById('overlayMessage');
+                    const icon = document.getElementById('icon');
+                    const boxes = document.querySelectorAll('.box');
+                    function resetBoxColors() {
+                        boxes.forEach(box => {
+                            box.style.backgroundColor = '#333333'; // Reset to default color (black in this case)
+                        });
+                    }
+
+                    document.getElementById('toggleButton').addEventListener('click', function() {
+                        isActive = !isActive;
+                        icon.classList.toggle('fa-toggle-on', isActive);
+                        icon.classList.toggle('fa-toggle-off', !isActive);
+
+                        var imgElement = document.getElementById('imgg');
+                        var currentSrc = imgElement.src;
+                        // Check if the current image is the first one
+                        if (currentSrc.includes("off.jpg")) {
+                            // If yes, swap to the second image
+                            imgElement.src = "button.png";
+                            document.getElementById("texts").innerHTML="on";
+                            document.getElementById("texts").style.color="green";
+                        } else {
+                            // If not, swap back to the first image
+                            imgElement.src = "off.jpg";
+                            document.getElementById("texts").innerHTML="off";
+                            document.getElementById("texts").style.color="red";
+                        }
+
+                        if (!isActive) {
+                            resetBoxColors(); // Reset box colors to black when turned off
+                        }
+
+                        overlayMessage.style.display = 'none'; // Hide the message when active
+                    });
+
+                    boxes.forEach((box, index) => {
+                        let colorIndex = 0; // Start from the first color
+                        box.addEventListener('click', function() {
+                            if (isActive) {
+                                colorIndex = (colorIndex + 1) % colors[index].length; // Cycle through colors
+                                this.style.backgroundColor = colors[index][colorIndex];
+                            } else {
+                                overlayMessage.style.display = 'block'; // Show the message
+                                setTimeout(() => {overlayMessage.style.display = 'none';}, 2000); // Hide after 2 seconds
+                            }
+                        });
+                    });
+                </script>
+</body>
+</html>
