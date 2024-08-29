@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Color swapper/Toggler</title>
+    <link rel="icon" href="./button.png" type="image/x-icon">
     <style>
         body {
             justify-content: center;
@@ -30,24 +31,14 @@
            
 
        
-        center i{
-            color:blue;
-            animation: blink 2s steps(1, end) infinite;
-        }
-        @keyframes blink { 
-            0% { opacity: 1;}
-            20% {color:rgb(0, 174, 67);}
-            40% {color: #871aa8;}
-            80% { opacity: 0;} 
-            100% { opacity: 1;}
-        } 
-
+        
         .box-container {
             display: grid;
             grid-template-columns: repeat(2, 150px); /* Adjusted box size */
             grid-gap: 20px;
             justify-content: center;
             margin: 0 auto;
+            margin-bottom: 20px;
         }
 
         .box {
@@ -110,38 +101,31 @@
 <body>
     <center>
         <div class="headerdiv">
-            <h1 ><marquee behavior="slide" direction="down">Hello My Partners!</marquee></h1>
+            <h1 ><marquee behavior="slide" direction="down">Color Swapper</marquee></h1>
         </div>
-        <i>what are you think about the future of <b>"NameRamdom"?</b></i>
         <ul style="list-style-type: none; font-family: monospace; font-size: large;">
             <li>-tap the button for on-</li>
-            <li>-then click on the box-</li>
+            <li>-then click on the box- </li>
             <li>-tap repeatedly to more color-</li>
-            <li>-tap the button to off -<br>-the box color remains dark.-</li>
+            <li>-tap the button to off - </li>
         </ul>
     </center>
-    <div class="container">
+    <div class="container" style="padding-bottom: 30px;">
         <div class="box-container">
-            <div class="box" id="box1"></div>
-            <div class="box" id="box2"></div>
-            <div class="box" id="box3"></div>
-            <div class="box" id="box4"></div>
-            <div class="box" id="box5"></div>
-            <div class="box" id="box6"></div>
+            <div class="box" id="box1" style="background-color: #48dbfb;"></div>
+            <div class="box" id="box2" style="background-color: #84fb48;"></div>
+            <div class="box" id="box3" style="background-color: #1b104e;"></div>
+            <div class="box" id="box4" style="background-color: #7e48fb;"></div>
+            <div class="box" id="box5" style="background-color: #ef48fb;"></div>
+            <div class="box" id="box6" style="background-color: #6cac38;"></div>
         </div>
     </div>
-    <center> 
-        <div>
-            <h3>I Am ready for the next challange with   apologizing for being late so far? ...</h3>
-            <h2 style="color:green;">good luck!!!!</h2>
-        </div>
-    </center>
 
     <!-- Icon Button -->
-    <button id="toggleButton">
+    <button id="toggleButton" aria-label="Toggle Color Swap">
         <img id="imgg" src="off.jpg" alt="click me">
         <i id="icon"></i>
-        <span id="texts" style="font-size: 2rem; color:red; font: bold 2rem 'monospace;">off</span>
+        <span id="texts" style="font-size: 2rem; color:red; font: bold 2rem 'monospace';">off</span>
     </button>
 
     <!-- Overlay Message -->
@@ -190,7 +174,7 @@
                         }
 
                         if (!isActive) {
-                            resetBoxColors(); // Reset box colors to black when turned off
+                            //resetBoxColors(); // Reset box colors to black when turned off
                         }
 
                         overlayMessage.style.display = 'none'; // Hide the message when active
@@ -202,7 +186,8 @@
                             if (isActive) {
                                 colorIndex = (colorIndex + 1) % colors[index].length; // Cycle through colors
                                 this.style.backgroundColor = colors[index][colorIndex];
-                            } else {
+                            }
+                            else {
                                 overlayMessage.style.display = 'block'; // Show the message
                                 setTimeout(() => {overlayMessage.style.display = 'none';}, 2000); // Hide after 2 seconds
                             }
